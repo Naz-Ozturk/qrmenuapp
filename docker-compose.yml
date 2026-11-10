@@ -1,0 +1,32 @@
+# Kendi sunucunuzda (VPS) çalıştırmak için: uygulama + otomatik HTTPS (Caddy).
+# Kullanım:  cp .env.example .env  →  .env'i düzenleyin  →  docker compose up -d
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DATA_DIR=/data
+    volumes:
+      - ilna-data:/data
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  ilna-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EEF3EE">
+<title>Menü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=DM+Serif+Display&family=Figtree:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Renk ve yazı tipleri işletme panelinden gelir; aşağıdakiler yüklenene kadar kullanılan varsayılanlar. */
+:root{--c-bg:#EEF3EE;--c-card:#fff;--c-ink:#15241D;--c-muted:#5C6E64;--c-accent:#2F7D5B;--c-accent-ink:#fff;--c-fd:"Bricolage Grotesque";--c-fb:"Figtree";color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--c-bg);color:var(--c-ink);font:15px/1.45 var(--c-fb),system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+h3,h4{font-family:var(--c-fd),system-ui,sans-serif;margin:0;text-wrap:balance}
+#cust{position:relative;height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;background:var(--c-bg)}
+.c-head{display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top)) 16px 10px}
+.c-logo{width:46px;height:46px;border-radius:14px;background:var(--c-accent);color:var(--c-accent-ink);display:grid;place-items:center;font:700 17px var(--c-fd),sans-serif;overflow:hidden;flex:none}
+.c-logo img{width:100%;height:100%;object-fit:cover}
+.c-name{font:700 20px/1.1 var(--c-fd),sans-serif}
+.c-sub{font-size:12.5px;color:var(--c-muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.c-pill{background:color-mix(in srgb,var(--c-accent) 14%,transparent);color:var(--c-accent);font-weight:700;padding:1px 8px;border-radius:99px}
+.c-icon-btn{margin-left:auto;border:1px solid color-mix(in srgb,var(--c-ink) 15%,transparent);background:var(--c-card);border-radius:12px;padding:7px 10px;font-size:12.5px;font-weight:600}
+.c-tabs{display:flex;gap:6px;padding:0 16px 10px}
+.c-tabs button{flex:1;border:0;background:color-mix(in srgb,var(--c-ink) 6%,transparent);padding:9px 4px;border-radius:12px;font-weight:700;font-size:14px;color:var(--c-muted)}
+.c-tabs button[aria-selected="true"]{background:var(--c-ink);color:var(--c-bg)}
+.c-badge{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--c-accent);color:var(--c-accent-ink);font-size:11px;margin-left:4px}
+.c-body{flex:1;overflow:auto;padding:0 16px 16px;-webkit-overflow-scrolling:touch}
+.c-pane{display:none}.c-pane.on{display:block}
+.c-cats{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.c-cats::-webkit-scrollbar{display:none}
+.c-cats button{flex:none;border:1px solid color-mix(in srgb,var(--c-ink) 14%,transparent);background:var(--c-card);padding:6px 12px;border-radius:99px;font-size:13.5px;font-weight:600}
+.c-cats button[aria-pressed="true"]{background:var(--c-accent);border-color:var(--c-accent);color:var(--c-accent-ink)}
+.c-sec-title{font:700 16px var(--c-fd),sans-serif;margin:8px 0}
+.c-list{display:grid;gap:8px}
+.c-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;background:var(--c-card);border-radius:16px;padding:10px}
+.c-item.out{opacity:.5}
+.c-thumb{width:64px;height:64px;border-radius:12px;background:color-mix(in srgb,var(--c-accent) 13%,var(--c-card));color:var(--c-accent);display:grid;place-items:center;overflow:hidden}
+.c-thumb img{width:100%;height:100%;object-fit:cover}
+.c-thumb svg,.stamp svg{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.c-thumb svg{width:34px;height:34px}
+.c-item h4{font-size:15px}
+.c-item p{margin:2px 0 0;font-size:12.5px;color:var(--c-muted);line-height:1.35}
+.c-price{font-weight:700;font-size:14px;margin-top:4px;font-variant-numeric:tabular-nums}
+.c-add{width:38px;height:38px;border-radius:12px;border:0;background:var(--c-accent);color:var(--c-accent-ink);font-size:20px;font-weight:700;line-height:1}
+.c-step{display:flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--c-accent) 12%,transparent);border-radius:12px;padding:3px}
+.c-step button{width:32px;height:32px;border:0;border-radius:9px;background:var(--c-card);font-weight:700;font-size:16px;color:var(--c-accent)}
+.c-step span{min-width:16px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c-status{background:var(--c-card);border-radius:16px;padding:12px;margin-bottom:12px;border-left:4px solid var(--c-accent)}
+.c-status h4{margin:0 0 6px;font-size:14px}
+.c-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;font-size:11.5px;color:var(--c-muted)}
+.c-steps div{border-top:4px solid color-mix(in srgb,var(--c-ink) 12%,transparent);padding-top:4px}
+.c-steps div.done{border-color:var(--c-accent);color:var(--c-ink);font-weight:700}
+.c-bar{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:6px;padding:10px 12px calc(12px + env(safe-area-inset-bottom));background:var(--c-card);border-top:1px solid color-mix(in srgb,var(--c-ink) 10%,transparent)}
+.c-bar button{border:1px solid color-mix(in srgb,var(--c-ink) 16%,transparent);background:transparent;border-radius:14px;padding:10px 4px;font-weight:700;font-size:13px;line-height:1.2}
+.c-bar button.primary{background:var(--c-accent);color:var(--c-accent-ink);border-color:var(--c-accent)}
+.c-bar button:disabled{opacity:.45;cursor:default}
+.c-noTable{padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:var(--c-card);text-align:center;font-size:13.5px;font-weight:600}
+.c-scrim{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .2s}
+.c-scrim.on{opacity:1;pointer-events:auto}
+.c-sheet{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow:auto;background:var(--c-bg);border-radius:22px 22px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .25s ease}
+.c-sheet.on{transform:none}
+.c-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.c-sheet-head h3{font-size:19px}
+.c-x{border:0;background:color-mix(in srgb,var(--c-ink) 8%,transparent);border-radius:10px;padding:6px 10px;font-weight:700}
+.c-line{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid color-mix(in srgb,var(--c-ink) 9%,transparent)}
+.c-line .grow{flex:1;min-width:0}
+.c-field{display:grid;gap:4px;margin-top:10px;font-size:13px;font-weight:600}
+.c-field input,.c-field textarea{border:1px solid color-mix(in srgb,var(--c-ink) 18%,transparent);background:var(--c-card);border-radius:12px;padding:9px 10px;font-weight:400;font-size:16px;resize:none}
+.c-sum{display:grid;gap:4px;margin:12px 0;font-size:14px}
+.c-sum div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.c-sum .tot{font-weight:800;font-size:17px;padding-top:6px;border-top:1px dashed color-mix(in srgb,var(--c-ink) 20%,transparent)}
+.c-sum .disc{color:var(--c-accent);font-weight:600}
+.c-btn{width:100%;border:0;border-radius:14px;padding:13px;font-weight:800;font-size:15px;background:var(--c-accent);color:var(--c-accent-ink)}
+.c-btn:disabled{opacity:.45}
+.c-check{display:flex;gap:8px;align-items:flex-start;background:var(--c-card);border-radius:12px;padding:10px;font-size:13.5px;margin-top:10px}
+.c-seg{display:flex;gap:6px;margin:8px 0 12px}
+.c-seg label{flex:1;text-align:center;background:var(--c-card);border:1px solid color-mix(in srgb,var(--c-ink) 14%,transparent);border-radius:12px;padding:8px;font-weight:600;font-size:14px;cursor:pointer;position:relative}
+.c-seg input{position:absolute;opacity:0}
+.c-seg label:has(input:checked){border-color:var(--c-accent);background:color-mix(in srgb,var(--c-accent) 12%,var(--c-card));color:var(--c-accent)}
+.c-toast{position:absolute;left:12px;right:12px;bottom:calc(86px + env(safe-area-inset-bottom));background:var(--c-ink);color:var(--c-bg);padding:11px 14px;border-radius:14px;font-size:13.5px;font-weight:600;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none}
+.c-toast.on{opacity:1;transform:none}
+.c-card{background:var(--c-card);border-radius:18px;padding:14px;margin-bottom:12px}
+.c-card h3{font-size:17px;margin-bottom:4px}
+.c-card p{margin:0;font-size:13px;color:var(--c-muted)}
+.wheel-wrap{position:relative;width:260px;height:260px;margin:14px auto 10px}
+.wheel-wrap canvas{width:260px;height:260px;display:block}
+.wheel-pin{position:absolute;left:50%;top:-6px;transform:translateX(-50%);border-left:12px solid transparent;border-right:12px solid transparent;border-top:22px solid var(--c-ink)}
+.c-result{text-align:center;font-weight:700;font-size:14px;min-height:20px;margin-bottom:10px}
+.coupon{display:flex;justify-content:space-between;align-items:center;gap:8px;border:2px dashed var(--c-accent);border-radius:14px;padding:10px 12px;margin-top:10px;font-weight:700;color:var(--c-accent)}
+.stamps{display:flex;gap:8px;margin:12px 0 6px;flex-wrap:wrap}
+.stamp{width:40px;height:40px;border-radius:50%;border:2px dashed color-mix(in srgb,var(--c-ink) 25%,transparent);display:grid;place-items:center;color:var(--c-accent)}
+.stamp.on{border:2px solid var(--c-accent);background:color-mix(in srgb,var(--c-accent) 15%,transparent)}
+.stamp svg{width:22px;height:22px}
+.c-row{display:flex;gap:8px;margin-top:10px}
+.c-row input{flex:1;min-width:0;border:1px solid color-mix(in srgb,var(--c-ink) 18%,transparent);background:var(--c-bg);border-radius:12px;padding:9px 10px;font-size:16px}
+.c-row button{border:0;border-radius:12px;padding:0 14px;font-weight:700;background:var(--c-accent);color:var(--c-accent-ink)}
+.linkbtn{border:0;background:none;color:var(--c-accent);font-weight:700;padding:0}
+.chat{display:grid;gap:10px;padding-bottom:8px}
+.msg{max-width:88%;padding:10px 12px;border-radius:16px;font-size:14px}
+.msg.bot{background:var(--c-card);border-bottom-left-radius:6px}
+.msg.me{background:var(--c-accent);color:var(--c-accent-ink);justify-self:end;border-bottom-right-radius:6px}
+.msg .pick{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px;border-radius:12px;background:var(--c-bg)}
+.msg .pick div{flex:1;font-size:13px}
+.msg .pick b{display:block;font-size:13.5px}
+.msg .pick button{border:0;border-radius:10px;padding:6px 10px;font-weight:700;font-size:12.5px;background:var(--c-accent);color:var(--c-accent-ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px}
+.chips button{border:1px solid color-mix(in srgb,var(--c-ink) 16%,transparent);background:transparent;border-radius:99px;padding:5px 10px;font-size:12.5px;font-weight:600}
+.chat-form{position:sticky;bottom:0;display:flex;gap:6px;padding-top:8px;background:var(--c-bg)}
+.chat-form input{flex:1;min-width:0;border:1px solid color-mix(in srgb,var(--c-ink) 18%,transparent);background:var(--c-card);border-radius:14px;padding:10px 12px;font-size:16px}
+.chat-form button{border:0;border-radius:14px;padding:0 14px;font-weight:700;background:var(--c-ink);color:var(--c-bg)}
+.c-note{font-size:11.5px;color:var(--c-muted);margin:4px 0 10px}
+.c-offline{background:#C2412D;color:#fff;text-align:center;font-size:12.5px;font-weight:600;padding:4px}
+.loading{display:grid;place-items:center;height:100%;color:var(--c-muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="cust">
+  <div class="loading" id="cLoading">Menü yükleniyor…</div>
+</div>
+
+<template id="tpl">
+  <div class="c-offline" id="cOffline" hidden>Bağlantı koptu, yeniden bağlanılıyor…</div>
+  <div class="c-head">
+    <div class="c-logo" id="cLogo"></div>
+    <div>
+      <div class="c-name" id="cName"></div>
+      <div class="c-sub"><span class="c-pill" id="cTable"></span><span id="cTag"></span></div>
+    </div>
+    <button class="c-icon-btn" id="cTheme" type="button">Görünüm</button>
+  </div>
+  <div class="c-tabs" role="tablist">
+    <button role="tab" data-ctab="menu" type="button">Menü</button>
+    <button role="tab" data-ctab="asistan" type="button">Asistan</button>
+    <button role="tab" data-ctab="odul" type="button">Ödüller<span id="cSpinBadge"></span></button>
+  </div>
+  <div class="c-body" id="cBody">
+    <div class="c-pane" data-cpane="menu">
+      <div id="cStatus"></div>
+      <div class="c-cats" id="cCats"></div>
+      <div id="cProducts"></div>
+    </div>
+    <div class="c-pane" data-cpane="asistan">
+      <div class="c-note">Asistan, menüdeki ürünlerin özelliklerine göre öneri yapar.</div>
+      <div class="chat" id="chatLog"></div>
+      <div class="chips" id="chatChips"></div>
+      <form class="chat-form" id="chatForm">
+        <input id="chatInput" placeholder="Canın ne çekiyor?" autocomplete="off" aria-label="Asistana yaz">
+        <button type="submit">Sor</button>
+      </form>
+    </div>
+    <div class="c-pane" data-cpane="odul" id="cRewards"></div>
+  </div>
+  <div class="c-bar" id="cBar">
+    <button id="cBtnWaiter" type="button">Garson<br>çağır</button>
+    <button id="cBtnBill" type="button">Hesap<br>iste</button>
+    <button id="cBtnCart" class="primary" type="button"></button>
+  </div>
+  <div class="c-noTable" id="cNoTable" hidden>Sipariş vermek için masandaki QR kodu okut.</div>
+  <div class="c-scrim" id="cScrim"></div>
+  <div class="c-sheet" id="sheetCart" role="dialog" aria-label="Sepet"></div>
+  <div class="c-sheet" id="sheetBill" role="dialog" aria-label="Hesap"></div>
+  <div class="c-toast" id="cToast" role="status" aria-live="polite"></div>
+</template>
+
+<script>
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const tl = n => Math.round(n).toLocaleString('tr-TR') + ' ₺';
+const norm = s => s.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ş/g,'s').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ö/g,'o').replace(/ç/g,'c');
+const reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const m = location.pathname.match(/\/masa(\d+)\/?$/);
+const TABLE_REQ = m ? Number(m[1]) : null;
+const LS_KEY = 'ilna-menu-' + (TABLE_REQ || 0);
+const ls = { get() { try { return JSON.parse(localStorage.getItem(LS_KEY)); } catch (e) { return null; } }, set(v) { try { localStorage.setItem(LS_KEY, JSON.stringify(v)); } catch (e) {} } };
+
+const ICONS = {
+  kahve:'<svg viewBox="0 0 48 48"><path d="M10 18h24v10a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/><path d="M34 21h3a5 5 0 0 1 0 10h-3"/><path d="M17 7c0 3 3 3 3 6M25 7c0 3 3 3 3 6"/></svg>',
+  soguk:'<svg viewBox="0 0 48 48"><path d="M13 10h22l-3 28H16z"/><path d="M14.5 20h19"/><path d="M29 4l-4 16"/></svg>',
+  tatli:'<svg viewBox="0 0 48 48"><path d="M8 37h32V24H8z"/><path d="M8 29c4 3 8-3 12 0s8 3 12 0 6-1 8 0"/><path d="M24 24v-6"/><path d="M24 14c-2-2 0-4 0-6 0 2 2 4 0 6z"/></svg>',
+  yiyecek:'<svg viewBox="0 0 48 48"><path d="M6 30c0-9 8-14 18-14s18 5 18 14z"/><path d="M4 34h40"/><path d="M16 22l3 8M24 18v12M32 22l-3 8"/></svg>'
+};
+const icon = cat => ICONS[cat] || ICONS.kahve;
+const PAIR = {t1:'k5', t2:'k3', t3:'k1', t4:'k5', t5:'k2'};
+const PAIR_WHY = {
+  t1:'filtrenin temiz asiditesi San Sebastian\'ın yoğunluğunu dengeler.',
+  t2:'Flat White\'ın sütü bitter çikolatayı yumuşatır.',
+  t3:'Tiramisu\'nun içindeki espressoyu tek shot ile tamamlarsın.',
+  t4:'ikisi de hafif; filtre kahve limonun ferahlığını bastırmaz.',
+  t5:'sütlü ve yumuşak latte, meyvenin tadını öne çıkarır.'
+};
+const CHIPS = ['Hafif bir tatlı ve yanına hangi kahve gider?','Soğuk ve kafeinsiz bir şey','Çok acıktım','Çikolatalı bir şey'];
+
+let D = null;                      // sunucudan gelen menü + masa durumu
+let L = Object.assign({cart:{}, note:'', tab:'menu', cat:'all', chat:[], themeOverride:null, myOrders:[], wheelMsg:'', useReward:false}, ls.get() || {});
+let sheet = null, busy = false, spinning = false, wheelRot = 0;
+const prod = id => D.products.find(p => p.id === id);
+const saveL = () => ls.set(L);
+
+async function api(method, url, body) {
+  const r = await fetch(url, {method, credentials:'same-origin', headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined});
+  let j = {}; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) throw new Error(j.error || 'Bağlantı sorunu oldu. Tekrar dene.');
+  return j;
+}
+async function refresh() {
+  try {
+    D = await api('GET', '/api/public' + (TABLE_REQ ? '?table=' + TABLE_REQ : ''));
+    for (const id of Object.keys(L.cart)) { const p = prod(id); if (!p || !p.stock) delete L.cart[id]; }
+    if (!$('#cBody')) { $('#cust').innerHTML = ''; $('#cust').append($('#tpl').content.cloneNode(true)); bind(); }
+    $('#cOffline').hidden = true;
+    render();
+  } catch (e) {
+    console.error(e);
+    if (!D) $('#cLoading').textContent = 'Menü yüklenemedi. Sayfayı yenile.';
+    else $('#cOffline').hidden = false;
+  }
+}
+
+/* ---------- çizim ---------- */
+function theme() {
+  const t = (L.themeOverride && D.theme.allowGuest && D.presets[L.themeOverride]) || D.theme;
+  const map = {'--c-bg':t.bg,'--c-card':t.card,'--c-ink':t.ink,'--c-muted':t.muted,'--c-accent':t.accent,'--c-accent-ink':t.accentInk,'--c-fd':`"${t.fontD}"`,'--c-fb':`"${t.fontB}"`};
+  for (const k in map) document.documentElement.style.setProperty(k, map[k]);
+  const meta = $('meta[name=theme-color]'); if (meta) meta.content = t.bg;
+  return t;
+}
+function cartCalc() {
+  const lines = Object.entries(L.cart).filter(([id, q]) => q > 0 && prod(id)).map(([id, q]) => ({p:prod(id), qty:q}));
+  const subtotal = lines.reduce((a, l) => a + l.p.price * l.qty, 0);
+  let discount = 0; const labels = [];
+  const c = D.me.coupon;
+  if (c && D.wheel.enabled && subtotal) { const d = c.type === 'pct' ? Math.round(subtotal * c.value / 100) : c.type === 'tl' ? Math.min(c.value, subtotal) : 0; if (d) { discount += d; labels.push('Çark: ' + c.label); } }
+  const coffees = lines.filter(l => l.p.coffee); const coffeeQty = coffees.reduce((a, l) => a + l.qty, 0);
+  const rewardAvail = D.loyalty.enabled && D.me.hasPhone && D.me.stamps >= D.loyalty.target && coffees.length > 0;
+  const rewardValue = rewardAvail ? Math.min(...coffees.map(l => l.p.price)) : 0;
+  if (rewardAvail && L.useReward) { discount += rewardValue; labels.push('Sadakat: 1 kahve bedava'); }
+  discount = Math.min(discount, subtotal);
+  return {lines, subtotal, discount, labels, total:subtotal - discount, rewardAvail, rewardValue, coffeeQty};
+}
+function render() {
+  theme();
+  document.title = D.cafe.name + (D.table ? ' · Masa ' + D.table : ' · Menü');
+  const initials = D.cafe.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  $('#cLogo').innerHTML = D.cafe.logo ? `<img src="${D.cafe.logo}" alt="">` : esc(initials);
+  $('#cName').textContent = D.cafe.name;
+  $('#cTable').textContent = D.table ? 'Masa ' + D.table : 'Menü';
+  $('#cTag').textContent = D.cafe.tagline;
+  $('#cTheme').hidden = !D.theme.allowGuest;
+  $('#cBar').hidden = !D.table; $('#cNoTable').hidden = !!D.table;
+  if (TABLE_REQ && !D.table) $('#cNoTable').textContent = 'Bu masa numarası tanımlı değil. Masandaki QR kodu tekrar okut.';
+  $$('[data-ctab]').forEach(b => b.setAttribute('aria-selected', b.dataset.ctab === L.tab));
+  $$('[data-cpane]').forEach(p => p.classList.toggle('on', p.dataset.cpane === L.tab));
+  $('#cSpinBadge').innerHTML = D.wheel.enabled && D.me.spins > 0 ? `<span class="c-badge">${D.me.spins}</span>` : '';
+  renderStatus(); renderMenu(); renderChat(); if (!spinning) renderRewards();
+  const c = cartCalc(); const n = c.lines.reduce((a, l) => a + l.qty, 0);
+  const cb = $('#cBtnCart'); cb.innerHTML = n ? `Sepet · ${n}<br>${tl(c.total)}` : 'Sepet<br>boş'; cb.disabled = !n;
+  if (sheet === 'cart') renderCart(); if (sheet === 'bill') renderBill();
+}
+function renderStatus() {
+  const names = ['Alındı','Hazırlanıyor','Masanda'], steps = ['yeni','hazirlaniyor','teslim'];
+  const mine = D.tableOrders.filter(o => L.myOrders.includes(o.id) && (o.status !== 'teslim' || Date.now() - o.t < 45 * 60000)).slice(-2).reverse();
+  $('#cStatus').innerHTML = mine.map(o => { const i = steps.indexOf(o.status); return `<div class="c-status"><h4>Sipariş #${o.no} · ${names[i]}</h4><div class="c-steps">${names.map((n, k) => `<div class="${k <= i ? 'done' : ''}">${n}</div>`).join('')}</div></div>`; }).join('');
+}
+function ctrl(p) {
+  if (!p.stock) return '<span style="font-size:12px;font-weight:700;color:var(--c-muted)">Tükendi</span>';
+  if (!D.table) return '';
+  const q = L.cart[p.id] || 0;
+  return q ? `<div class="c-step"><button type="button" data-dec="${p.id}" aria-label="${esc(p.name)} azalt">−</button><span>${q}</span><button type="button" data-inc="${p.id}" aria-label="${esc(p.name)} artır">+</button></div>`
+           : `<button class="c-add" type="button" data-inc="${p.id}" aria-label="${esc(p.name)} sepete ekle">+</button>`;
+}
+function renderMenu() {
+  $('#cCats').innerHTML = [{id:'all', name:'Tümü'}, ...D.cats].map(c => `<button type="button" data-cat="${c.id}" aria-pressed="${L.cat === c.id}">${esc(c.name)}</button>`).join('');
+  const cats = L.cat === 'all' ? D.cats : D.cats.filter(c => c.id === L.cat);
+  $('#cProducts').innerHTML = cats.map(c => {
+    const items = D.products.filter(p => p.cat === c.id); if (!items.length) return '';
+    return `<div class="c-sec-title">${esc(c.name)}</div><div class="c-list">${items.map(p => `
+      <div class="c-item ${p.stock ? '' : 'out'}"><div class="c-thumb">${p.img ? `<img src="${p.img}" alt="" loading="lazy">` : icon(p.cat)}</div>
+      <div><h4>${esc(p.name)}</h4><p>${esc(p.desc)}</p><div class="c-price">${tl(p.price)}</div></div>${ctrl(p)}</div>`).join('')}</div>`;
+  }).join('') || '<p class="c-note">Menü henüz hazırlanıyor.</p>';
+}
+function renderRewards() {
+  const w = D.wheel, Lo = D.loyalty, me = D.me; let h = '';
+  if (w.enabled) h += `<div class="c-card"><h3>İndirim çarkı</h3><p>İlk girişte 1 hak. ${tl(w.minAmount)} ve üzeri her siparişte +1 hak.</p>
+    <div class="wheel-wrap"><div class="wheel-pin"></div><canvas id="wheel" width="520" height="520" aria-label="İndirim çarkı"></canvas></div>
+    <div class="c-result" id="wheelRes">${esc(L.wheelMsg)}</div>
+    <button class="c-btn" type="button" id="spinBtn" ${me.spins > 0 ? '' : 'disabled'}>${me.spins > 0 ? `Çevir · ${me.spins} hakkın var` : 'Hakkın kalmadı'}</button>
+    ${me.coupon ? `<div class="coupon"><span>Kuponun: ${esc(me.coupon.label)}</span><span style="font-size:12px">Sıradaki siparişte</span></div>` : ''}</div>`;
+  if (Lo.enabled) {
+    const filled = Math.min(me.stamps, Lo.target);
+    h += `<div class="c-card"><h3>Sadakat kartı</h3><p>Her kahve 1 damga. ${Lo.target} damgada 1 kahve bizden.</p>
+      ${me.hasPhone ? `<div class="stamps">${Array.from({length:Lo.target}, (_, i) => `<div class="stamp ${i < filled ? 'on' : ''}">${i < filled ? ICONS.kahve : ''}</div>`).join('')}</div>
+        <p><b style="color:var(--c-ink)">${me.stamps >= Lo.target ? 'Bedava kahven hazır. Sepette kullanabilirsin.' : `${Lo.target - me.stamps} damga kaldı.`}</b> · ${esc(me.phone)} <button type="button" class="linkbtn" id="phoneOut">değiştir</button></p>`
+      : `<div class="c-row"><input id="phoneIn" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" aria-label="Telefon numarası"><button type="button" id="phoneGo">Kartımı aç</button></div>
+         <p style="margin-top:8px;font-size:11.5px">Numaran yalnızca damgalarını eşleştirmek için kullanılır.</p>`}</div>`;
+  }
+  if (!h) h = '<p class="c-note">Şu an aktif kampanya yok.</p>';
+  $('#cRewards').innerHTML = h;
+  drawWheel();
+}
+function renderChat() {
+  if (!L.chat.length) L.chat.push({from:'bot', text:`Merhaba! ${D.cafe.name} menüsünden sana öneri yapabilirim. Canın ne çekiyor?`, picks:[]});
+  $('#chatLog').innerHTML = L.chat.map(m => `<div class="msg ${m.from}">${esc(m.text)}${(m.picks || []).map(id => { const p = prod(id); if (!p) return '';
+    return `<div class="pick"><div><b>${esc(p.name)}</b>${tl(p.price)}</div>${p.stock && D.table ? `<button type="button" data-inc="${p.id}">Ekle</button>` : (p.stock ? '' : '<span>Tükendi</span>')}</div>`; }).join('')}</div>`).join('');
+  $('#chatChips').innerHTML = CHIPS.map(c => `<button type="button" data-chip="${esc(c)}">${esc(c)}</button>`).join('');
+}
+function assist(q) {
+  const words = norm(q).split(/[^a-z0-9]+/).filter(Boolean);
+  const has = (...st) => words.some(w => st.some(s => w.startsWith(s)));
+  const want = [];
+  if (has('hafif','light','diyet')) want.push('hafif');
+  if (has('soguk','serin','buzlu','ferah')) want.push('soguk');
+  if (has('sicak','usu')) want.push('sicak');
+  if (has('cikolata','kakao','brownie')) want.push('cikolata');
+  if (has('meyve','limon','cilek','eksi')) want.push('meyveli');
+  if (has('kafeinsiz','uyku')) want.push('kafeinsiz');
+  if (has('sert','yogun','guclu','uyan')) want.push('yogun');
+  if (has('sutlu','sut')) want.push('sutlu');
+  const wantDessert = has('tatli','pasta','kek') || (want.includes('cikolata') && !has('kahve','icecek'));
+  const wantFood = words.includes('ac') || has('acikt','doyur','yemek','kahvalti','tost','sandvic','tuzlu','ogle','karn');
+  if (wantFood) want.push('tok');
+  const wantCoffee = has('kahve','espresso','latte');
+  const wantDrink = has('icecek','icmek','limonata','milkshake') || want.includes('soguk') || want.includes('kafeinsiz');
+  const avail = D.products.filter(p => p.stock);
+  const tags = p => p.tags || [];
+  const score = p => want.reduce((a, t) => a + (tags(p).includes(t) ? 2 : 0), 0) + (p.pop || 0) * .3;
+  const clash = want.includes('soguk') ? ['sicak'] : want.includes('sicak') ? ['soguk'] : [];
+  const best = (pool, n = 1) => pool.filter(p => !clash.some(t => tags(p).includes(t))).sort((a, b) => score(b) - score(a)).slice(0, n);
+  const isFood = p => ['tatli','yiyecek'].includes(p.cat);
+  const drinks = avail.filter(p => !isFood(p) && (!want.includes('kafeinsiz') || tags(p).includes('kafeinsiz')));
+  let picks = [], text = '';
+  if (wantDessert) {
+    const d = avail.filter(p => p.cat === 'tatli').sort((a, b) => score(b) - score(a))[0];
+    if (d) {
+      picks.push(d);
+      const pair = PAIR[d.id] && prod(PAIR[d.id]); let drink = null;
+      if (!wantDrink && pair && pair.stock && !clash.some(t => tags(pair).includes(t))) { drink = pair; text = `${d.name} iyi bir seçim. Yanına ${pair.name} öneririm: ${PAIR_WHY[d.id]}`; }
+      else { drink = best(wantCoffee ? drinks.filter(p => p.coffee) : drinks)[0]; text = drink ? `${d.name} ve yanına ${drink.name} öneririm.` : `${d.name} öneririm.`; }
+      if (drink) picks.push(drink);
+    }
+  } else if (wantFood) {
+    picks = best(avail.filter(p => p.cat === 'yiyecek'), 2); const dr = best(drinks)[0]; if (dr) picks.push(dr);
+    text = 'Doyurucu seçenekler şunlar; yanına bir içecek de ekledim.';
+  } else if (wantCoffee || wantDrink || want.length) {
+    picks = best(wantCoffee ? drinks.filter(p => p.coffee) : drinks, 2); text = 'İsteğine en uygun içecekler bunlar:';
+  }
+  if (!picks.length) { picks = [...avail].sort((a, b) => (b.pop || 0) - (a.pop || 0)).slice(0, 3); text = 'Tam anlayamadım. En çok sevilenler şunlar; istersen "hafif", "soğuk", "çikolatalı" gibi bir ipucu ver.'; }
+  return {from:'bot', text, picks:picks.map(p => p.id)};
+}
+
+/* ---------- çark ---------- */
+function drawWheel() {
+  const cv = $('#wheel'); if (!cv || !cv.getContext) return; const ctx = cv.getContext('2d'); if (!ctx) return;
+  const t = theme(), sl = D.wheel.slices, n = sl.length, seg = Math.PI * 2 / n, W = cv.width, r = W / 2 - 8, c = W / 2;
+  ctx.clearRect(0, 0, W, W);
+  sl.forEach((s, i) => {
+    const a0 = wheelRot + i * seg;
+    ctx.beginPath(); ctx.moveTo(c, c); ctx.arc(c, c, r, a0, a0 + seg); ctx.closePath();
+    ctx.fillStyle = s.type === 'none' ? t.muted : (i % 2 ? t.accent : t.ink); ctx.fill();
+    ctx.save(); ctx.translate(c, c); ctx.rotate(a0 + seg / 2);
+    ctx.fillStyle = i % 2 && s.type !== 'none' ? t.accentInk : t.bg;
+    ctx.font = `700 26px "${t.fontB}", sans-serif`; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(s.label.length > 13 ? s.label.slice(0, 12) + '…' : s.label, r - 22, 0); ctx.restore();
+  });
+  ctx.beginPath(); ctx.arc(c, c, r, 0, Math.PI * 2); ctx.lineWidth = 8; ctx.strokeStyle = t.card; ctx.stroke();
+  ctx.beginPath(); ctx.arc(c, c, 34, 0, Math.PI * 2); ctx.fillStyle = t.card; ctx.fill();
+}
+async function spin() {
+  if (spinning) return; spinning = true;
+  const btn = $('#spinBtn'); btn.disabled = true; $('#wheelRes').textContent = 'Dönüyor…';
+  let res; try { res = await api('POST', '/api/spin'); } catch (e) { spinning = false; toast(e.message); return refresh(); }
+  const n = D.wheel.slices.length, seg = Math.PI * 2 / n, TAU = Math.PI * 2, i = res.index;
+  const base = 1.5 * Math.PI - (i + .5) * seg, cur = ((wheelRot % TAU) + TAU) % TAU, delta = (((base - cur) % TAU) + TAU) % TAU;
+  const start = wheelRot, end = wheelRot + (reduced ? 1 : 6) * TAU + delta, dur = reduced ? 500 : 3800, t0 = performance.now();
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur); wheelRot = start + (end - start) * (1 - Math.pow(1 - k, 3)); drawWheel();
+    if (k < 1) return requestAnimationFrame(step);
+    spinning = false;
+    L.wheelMsg = res.slice.type === 'none' ? 'Bu sefer olmadı. Sonraki siparişlerde yeni hak kazanabilirsin.' : `Kazandın: ${res.slice.label}! Sıradaki siparişine otomatik uygulanır.`;
+    saveL(); D.me = res.me; render();
+  };
+  requestAnimationFrame(step);
+}
+
+/* ---------- sepet ve hesap ---------- */
+function openSheet(n) { sheet = n; $('#cScrim').classList.add('on'); $('#sheetCart').classList.toggle('on', n === 'cart'); $('#sheetBill').classList.toggle('on', n === 'bill'); n === 'cart' ? renderCart() : renderBill(); }
+function closeSheets() { sheet = null; $('#cScrim').classList.remove('on'); $('#sheetCart').classList.remove('on'); $('#sheetBill').classList.remove('on'); }
+function renderCart() {
+  const c = cartCalc(), Lo = D.loyalty;
+  const noteFocused = document.activeElement && document.activeElement.id === 'cartNote';
+  if (noteFocused) return;
+  $('#sheetCart').innerHTML = `
+    <div class="c-sheet-head"><h3>Sepetin · Masa ${D.table}</h3><button class="c-x" type="button" data-close>Kapat</button></div>
+    ${c.lines.length ? c.lines.map(l => `<div class="c-line"><div class="grow"><b>${esc(l.p.name)}</b><div style="font-size:12.5px;color:var(--c-muted)">${tl(l.p.price)}</div></div>${ctrl(l.p)}<div style="width:72px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums">${tl(l.p.price * l.qty)}</div></div>`).join('') : '<p>Sepetin boş.</p>'}
+    <label class="c-field">Mutfağa not<textarea id="cartNote" rows="2" maxlength="200" placeholder="Örn: latte yulaf sütlü olsun">${esc(L.note)}</textarea></label>
+    ${Lo.enabled ? (D.me.hasPhone
+      ? (c.rewardAvail ? `<label class="c-check"><input type="checkbox" id="useReward" ${L.useReward ? 'checked' : ''}><span><b>Bedava kahveni kullan</b><br>Sepetteki en uygun kahve (${tl(c.rewardValue)}) düşülür.</span></label>`
+                       : `<div class="c-check"><span>Sadakat kartı: ${D.me.stamps}/${Lo.target} damga · bu siparişle +${c.coffeeQty}</span></div>`)
+      : `<div class="c-check"><span>Damga kazanmak ister misin? Ödüller sekmesinden telefonunla kartını aç.</span></div>`) : ''}
+    <div class="c-sum"><div><span>Ara toplam</span><span>${tl(c.subtotal)}</span></div>
+      ${c.labels.map(l => `<div class="disc"><span>${esc(l)}</span><span></span></div>`).join('')}
+      ${c.discount ? `<div class="disc"><span>İndirim</span><span>−${tl(c.discount)}</span></div>` : ''}
+      <div class="tot"><span>Toplam</span><span>${tl(c.total)}</span></div></div>
+    ${D.wheel.enabled && c.total > 0 && c.total < D.wheel.minAmount ? `<p class="c-note">${tl(D.wheel.minAmount - c.total)} daha eklersen çark hakkı kazanırsın.</p>` : ''}
+    <button class="c-btn" type="button" id="sendOrder" ${c.lines.length && !busy ? '' : 'disabled'}>${busy ? 'Gönderiliyor…' : 'Siparişi gönder · ' + tl(c.total)}</button>`;
+}
+function renderBill() {
+  const os = D.tableOrders, tot = os.reduce((a, o) => a + o.total, 0), pending = D.pending.includes('hesap');
+  $('#sheetBill').innerHTML = `
+    <div class="c-sheet-head"><h3>Hesap · Masa ${D.table}</h3><button class="c-x" type="button" data-close>Kapat</button></div>
+    ${os.length ? os.map(o => `<div class="c-line"><div class="grow"><b>Sipariş #${o.no}</b><div style="font-size:12.5px;color:var(--c-muted)">${o.items.map(i => `${i.qty}× ${esc(i.name)}`).join(', ')}</div></div><b style="font-variant-numeric:tabular-nums">${tl(o.total)}</b></div>`).join('') + `
+      <div class="c-sum"><div class="tot"><span>Ödenecek</span><span>${tl(tot)}</span></div></div>
+      <div class="c-seg" role="radiogroup" aria-label="Ödeme şekli"><label><input type="radio" name="pay" value="Kart" checked>Kart</label><label><input type="radio" name="pay" value="Nakit">Nakit</label></div>
+      <button class="c-btn" type="button" id="askBill" ${pending ? 'disabled' : ''}>${pending ? 'Garson hesabı getiriyor' : 'Garson hesabı getirsin'}</button>`
+    : '<p>Bu masada açık hesap yok.</p>'}`;
+}
+let toastT;
+function toast(msg) { const t = $('#cToast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3400); }
+
+async function sendOrder() {
+  const c = cartCalc(); if (!c.lines.length || busy) return;
+  busy = true; renderCart();
+  try {
+    const r = await api('POST', '/api/orders', {table:D.table, items:c.lines.map(l => ({pid:l.p.id, qty:l.qty})), note:L.note, useReward:L.useReward && c.rewardAvail});
+    L.myOrders = [...L.myOrders, r.order.id].slice(-20); L.cart = {}; L.note = ''; L.useReward = false; L.tab = 'menu'; saveL();
+    closeSheets();
+    toast(`Sipariş #${r.order.no} mutfağa iletildi.${r.earned ? ` ${r.earned} damga kazandın.` : ''}${r.gotSpin ? ' Çark hakkı kazandın!' : ''}`);
+    $('#cBody').scrollTop = 0;
+  } catch (e) { toast(e.message); }
+  busy = false; await refresh();
+}
+
+/* ---------- olaylar ---------- */
+function bind() {
+  $('#cust').addEventListener('click', async e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.ctab) { L.tab = b.dataset.ctab; saveL(); render(); return; }
+    if (b.dataset.cat) { L.cat = b.dataset.cat; saveL(); render(); return; }
+    if (b.dataset.inc) { L.cart[b.dataset.inc] = Math.min(20, (L.cart[b.dataset.inc] || 0) + 1); if (b.closest('.msg')) toast(prod(b.dataset.inc).name + ' sepete eklendi.'); saveL(); render(); return; }
+    if (b.dataset.dec) { const q = (L.cart[b.dataset.dec] || 0) - 1; if (q > 0) L.cart[b.dataset.dec] = q; else delete L.cart[b.dataset.dec]; saveL(); render(); return; }
+    if (b.dataset.chip) { ask(b.dataset.chip); return; }
+    if (b.hasAttribute('data-close')) { closeSheets(); return; }
+    try {
+      switch (b.id) {
+        case 'cBtnCart': openSheet('cart'); break;
+        case 'cBtnBill': openSheet('bill'); break;
+        case 'cBtnWaiter': {
+          b.disabled = true; const r = await api('POST', '/api/calls', {table:D.table, type:'garson'});
+          toast(r.duplicate ? 'Garson zaten çağrıldı, birazdan masanda.' : 'Garson çağrıldı. Birazdan masanda.'); b.disabled = false; break;
+        }
+        case 'askBill': {
+          const pay = ($('input[name=pay]:checked') || {}).value || 'Kart';
+          b.disabled = true; await api('POST', '/api/calls', {table:D.table, type:'hesap', pay}); toast('Hesap isteğin iletildi.'); closeSheets(); await refresh(); break;
+        }
+        case 'sendOrder': await sendOrder(); break;
+        case 'spinBtn': await spin(); break;
+        case 'phoneGo': { const r = await api('POST', '/api/loyalty', {phone:$('#phoneIn').value}); D.me = r.me; render(); toast('Sadakat kartın açıldı.'); break; }
+        case 'phoneOut': { const r = await api('DELETE', '/api/loyalty'); D.me = r.me; render(); break; }
+        case 'cTheme': {
+          const keys = Object.keys(D.presets), cur = L.themeOverride || D.theme.preset;
+          const next = keys[(keys.indexOf(cur) + 1) % keys.length];
+          L.themeOverride = next === D.theme.preset ? null : next; saveL(); render(); toast('Görünüm: ' + D.presets[next].name); break;
+        }
+      }
+    } catch (err) { toast(err.message); b.disabled = false; }
+  });
+  $('#cScrim').addEventListener('click', closeSheets);
+  $('#cust').addEventListener('input', e => { if (e.target.id === 'cartNote') { L.note = e.target.value.slice(0, 200); saveL(); } });
+  $('#cust').addEventListener('change', e => { if (e.target.id === 'useReward') { L.useReward = e.target.checked; saveL(); render(); } });
+  $('#chatForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#chatInput'); ask(i.value); i.value = ''; });
+}
+function ask(q) {
+  q = q.trim(); if (!q) return;
+  L.chat.push({from:'me', text:q}); L.chat.push(assist(q)); L.chat = L.chat.slice(-12); saveL(); render();
+  const body = $('#cBody'); body.scrollTop = body.scrollHeight;
+}
+
+/* ---------- canlı güncelleme ---------- */
+let rT;
+const soon = () => { clearTimeout(rT); rT = setTimeout(refresh, 250); };
+function live() {
+  if (!window.EventSource) { setInterval(refresh, 15000); return; }
+  const es = new EventSource('/api/events' + (TABLE_REQ ? '?table=' + TABLE_REQ : ''));
+  es.addEventListener('change', soon);
+  es.onerror = () => { if ($('#cOffline')) $('#cOffline').hidden = false; };
+  es.onopen = () => { if ($('#cOffline')) { $('#cOffline').hidden = true; soon(); } };
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) soon(); });
+refresh().then(live);
+</script>
+</body>
+</html>

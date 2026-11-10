@@ -1,0 +1,17 @@
+{
+  "name": "ilna-kafe-qr",
+  "version": "1.0.0",
+  "description": "ILNA Kafe QR - masa bazlı QR menü, sipariş, garson çağırma, çark ve sadakat platformu",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "SEED_DEMO=true ADMIN_PASSWORD=demo1234 node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}

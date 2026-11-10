@@ -1,0 +1,8 @@
+# Caddy, alan adınız için Let's Encrypt sertifikasını otomatik alır ve yeniler.
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy app:3000 {
+		# Canlı bildirimlerin (SSE) beklemeden iletilmesi için
+		flush_interval -1
+	}
+}
